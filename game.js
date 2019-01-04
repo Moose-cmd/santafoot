@@ -23,6 +23,7 @@ var BootScene = new Phaser.Class({
     {
         this.scene.start('WorldScene');
     }
+
 });
 
 var WorldScene = new Phaser.Class({
@@ -35,12 +36,19 @@ var WorldScene = new Phaser.Class({
     },
 
     preload: function ()
-    {
 
+    {
+        var songs = ['assets/bensound-dubstep.mp3', 'assets/bensound-endlessmotion.mp3', 'assets/bensound-summer.mp3', 'assets/CatAstroPhi_shmup_normal.wav', 'assets/bensound-creativeminds.mp3',];
+        var randomsong = Math.floor(Math.random() * 4);  // 0 ~ 3
+        this.load.audio('song', songs[randomsong]);
+        this.load.audio('OoOo0Oo0OfF', 'assets/438912__thedavedude__homemadeoof.wav');
     },
 
     create: function ()
     {
+        music = this.sound.add ('song');
+        music.setLoop(true); // loop: true/false
+        music.play();
         var map = this.make.tilemap({ key: 'map' });
 
         var tiles = map.addTilesetImage('spritesheet', 'tiles');
@@ -109,10 +117,12 @@ var WorldScene = new Phaser.Class({
         if (this.cursors.left.isDown)
         {
             this.player.body.setVelocityX(-80);
+            this.player.flipX=true;
         }
         else if (this.cursors.right.isDown)
         {
             this.player.body.setVelocityX(80);
+            this.player.flipX=false;
         }
 
         // Veritical movement
@@ -128,11 +138,11 @@ var WorldScene = new Phaser.Class({
 
         if (this.cursors.left.isDown)
         {
-            this.player.anims.play('left', true);
+            this.player.anims.play('right', true);
         }
         if (this.cursors.right.isDown)
         {
-            this.player.anims.play('right', true);
+            this.player.anims.play('left', true);
         }
         if (this.cursors.up.isDown)
         {
@@ -142,7 +152,6 @@ var WorldScene = new Phaser.Class({
         {
             this.player.anims.play('down', true);
         }
-
 
     }
 
