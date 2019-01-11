@@ -9,6 +9,8 @@ var BootScene = new Phaser.Class({
 
     preload: function ()
     {
+        this.load.image('title', 'assets/homescreen.png');
+
         // map tiles
         this.load.image('tiles', 'assets/spritesheet.png');
 
@@ -21,7 +23,11 @@ var BootScene = new Phaser.Class({
 
     create: function ()
     {
-        this.scene.start('WorldScene');
+        this.add.image(0, 0, 'title').setScale(0.5);
+
+        this.input.on('pointerdown', function (pointer) {
+            this.scene.start('WorldScene');
+        }, this);
     }
 
 });
@@ -109,6 +115,9 @@ var WorldScene = new Phaser.Class({
         this.physics.add.overlap(this.player, this.spawns, this.onMeetEnemy, false, this);
     },
 
+    onMeetEnemy:function() {
+        alert('Enemy!!!');
+    },
     update: function (time, delta)
     {
         this.player.body.setVelocity(0);
