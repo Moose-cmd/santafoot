@@ -9,7 +9,7 @@ var BootScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('title', 'assets/homescreen.png');
+        this.load.image('splash', 'assets/splash.png');
 
         // map tiles
         this.load.image('tiles', 'assets/spritesheet.png');
@@ -23,12 +23,18 @@ var BootScene = new Phaser.Class({
 
     create: function ()
     {
-        this.add.image(0, 0, 'title').setScale(0.5);
+        var image = this.add.image(160, 120, 'splash');
+        image.displayWidth = 320;
+        image.displayHeight = 240;
+
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' }
 
         this.input.on('pointerdown', function (pointer) {
             this.scene.start('WorldScene');
         }, this);
     }
+
+
 
 });
 
@@ -44,6 +50,7 @@ var WorldScene = new Phaser.Class({
     preload: function ()
 
     {
+
         var songs = ['assets/bensound-dubstep.mp3', 'assets/bensound-endlessmotion.mp3', 'assets/bensound-summer.mp3', 'assets/CatAstroPhi_shmup_normal.wav', 'assets/bensound-creativeminds.mp3',];
         var randomsong = Math.floor(Math.random() * 4);  // 0 ~ 3
         this.load.audio('song', songs[randomsong]);
