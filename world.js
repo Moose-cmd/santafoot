@@ -83,8 +83,10 @@ var WorldScene = new Phaser.Class({
     },
 
     onMeetEnemy:function() {
-        alert('Enemy!!!');
+        //alert('Enemy!!!');
+        this.scene.switch('BattleScene');
     },
+
     update: function (time, delta)
     {
         this.player.body.setVelocity(0);
