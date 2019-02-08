@@ -9,7 +9,7 @@ var BootScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.image('fork', 'assets/fork.png');
+        this.load.spritesheet('guy', 'assets/adventure_dude.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('splash', 'assets/splash.png');
 
         // map tiles
