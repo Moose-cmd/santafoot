@@ -1,7 +1,25 @@
 var Character = new Phaser.Class({
     Extends: Phaser.GameObjects.Sprite,
-});
 
+    initialize: function Character(scene, x, y, texture, frame) {
+        Phaser.GameObjects.Sprite.call(this, scene, x, y, texture, frame);
+    },
+
+    setAttributes: function (type, hp, damage)
+    {
+        this.type = type;
+        this.hp = hp;
+        this.damage = damage;
+    },
+    status: function() {
+        var text = this.type + ' has HP ' + this.hp;
+        return text;
+    },
+    attack: function(opponent) {
+        opponent.hp -= this.damage;
+    }
+
+});
 
 var Enemy = new Phaser.Class({
     Extends: Character,
@@ -22,10 +40,27 @@ var BattleScene = new Phaser.Class({
 
     preload: function ()
     {
-
     },
 
     create: function () {
+        console.log('alek is awesome!');
+
+        var alek = new Enemy(this, 50, 50);
+        alek.setAttributes('hacker', 80, 2000);
+        console.log(alek.hp);
+        console.log(alek.damage);
+        console.log(alek.status());
+        var evan = new Enemy(this, 50, 50);
+        evan.setAttributes('coder', 999999, 999999);
+        console.log(evan.hp);
+        console.log(evan.damage);
+        console.log(evan.status());
+
+        evan.attack(alek);
+        console.log(evan.status());
+        console.log(alek.status());
+
+
         console.log('BattleScene');
         this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
         this.scene.launch('BattleSceneUI');
